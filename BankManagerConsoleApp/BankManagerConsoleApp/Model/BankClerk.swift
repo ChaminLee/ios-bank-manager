@@ -13,14 +13,22 @@ protocol BankClerkDelegate: AnyObject {
 }
 
 class BankClerk {
+    private weak var bank: BankTransactionable?
     private weak var delegate: BankClerkDelegate?
     
     init(delegatee: BankClerkDelegate) {
         self.delegate = delegatee
     }
     
-    func work(with customer: Customer) {
+    func setBank(bank: BankTransactionable) {
+        self.bank = bank
+    }
+    
+    func work() {
         let workGroup = DispatchGroup()
+        guard let customer = self.bank?.dequeue() else {
+            return
+        }
         
         workGroup.enter()
         self.processWork(of: customer, group: workGroup)
@@ -28,7 +36,7 @@ class BankClerk {
         
         workGroup.wait()
     }
-    
+
     private func processWork(of customer: Customer, group: DispatchGroup) {
         delegate?.printBeginWorkMessage(of: customer)
         group.wait(timeout: .now() + customer.task.processingTime)

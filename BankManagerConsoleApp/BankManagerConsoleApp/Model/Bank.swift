@@ -11,55 +11,61 @@ protocol BankDelegate: AnyObject {
     func printClosingMessage(customers: Int, processingTime: Double)
 }
 
-class Bank {
+protocol BankTransactionable: AnyObject {
+    func dequeue() -> Customer?
+    func open()
+    func close(totalCustomers: Int, totalProcessingTime: Double)
+}
+
+class Bank: BankTransactionable {
     private let customerQueue: Queue<Customer> = Queue<Customer>()
     private var bankClerk: BankClerk
     private weak var delegate: BankDelegate?
     
     init(bankClerk: BankClerk, delegatee: BankDelegate) {
         self.bankClerk = bankClerk
+        self.bankClerk.setBank(bank: self)
         self.delegate = delegatee
         setupCustomerQueue()
     }
     
     private func setupCustomerQueue() {
-        let randomCustomerCount: Int = Int.random(in: 10...30)
+        let randomCustomerCount: Int = 10 //Int.random(in: 10...30)
         
         (1...randomCustomerCount).forEach { number in
             customerQueue.enqueue(value: Customer(turn: number))
         }
     }
     
+    func dequeue() -> Customer? {
+        return customerQueue.dequeue()
+    }
+    
     func open() {
-        let semaphore = DispatchSemaphore(value: 2)
+        let group = DispatchGroup()
         let depositQueue = DispatchQueue(label: "deposit", attributes: .concurrent)
         let loanQueue = DispatchQueue(label: "loan")
-        let bankGroup = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 2)
         
-        var processedCustomers = 0
-        let startTime = CFAbsoluteTimeGetCurrent()
-        
-        while let customer = customerQueue.dequeue() {
-            switch customer.task {
+        while !customerQueue.isEmpty {
+            switch customerQueue.peek()?.task {
             case .deposit:
-                depositQueue.async(group: bankGroup) {
+                depositQueue.async(group: group) {
                     semaphore.wait()
-                    self.bankClerk.work(with: customer)
+                    self.bankClerk.work()
                     semaphore.signal()
                 }
             case .loan:
-                loanQueue.async(group: bankGroup) {
-                    self.bankClerk.work(with: customer)
+                loanQueue.async(group: group) {
+                    self.bankClerk.work()
                 }
+                
+            default:
+                return
             }
-            processedCustomers += 1
         }
         
-        bankGroup.wait()
-        
-        let endTime = CFAbsoluteTimeGetCurrent()
-        let totalProcessingTime = endTime - startTime
-        close(totalCustomers: processedCustomers, totalProcessingTime: totalProcessingTime)
+        group.wait()
     }
     
     func close(totalCustomers: Int, totalProcessingTime: Double) {
