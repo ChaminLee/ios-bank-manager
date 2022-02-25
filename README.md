@@ -11,6 +11,7 @@
 
 ---
 ## 목차 
+- [구현](#구현)
 - [STEP 1](#STEP1)
   - [구현 내용](#STEP1_구현)
   - [고민했던 부분](#STEP1_고민)
@@ -22,6 +23,13 @@
 - [STEP 4](#STEP4) 
   - [고민했던 부분](#STEP4_고민)
   
+---
+<a name="구현"></a>
+
+|고객 추가/초기화|고객 처리|
+|:---:|:---:|
+|![Simulator Screen Recording - iPhone 13 Pro - 2022-02-25 at 18 46 25](https://user-images.githubusercontent.com/45652743/155693353-5faa61de-0692-45f4-aed3-9e0672ffda9c.gif)|![Simulator Screen Recording - iPhone 13 Pro - 2022-02-25 at 18 45 30](https://user-images.githubusercontent.com/45652743/155693332-8ee9b013-def7-43cd-920f-a1187494bfba.gif)|
+
 ---
 
 <a name="STEP1"></a>
