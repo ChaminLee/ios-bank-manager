@@ -1,6 +1,8 @@
-# 🏦 은행 매니저 프로젝트 저장소
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&width=100%&height=300&section=header&text=🏦%20은행%20매니저&fontSize=90" width=100%>
 
-- 팀 프로젝트
+# 🏦 은행 매니저 프로젝트
+
+- 팀 프로젝트 (2인)
 - 구현 기간 : 2021.12.20 ~ 31 (2 weeks)
 
 |STEP 1|STEP 2|STEP 3|STEP 4|
@@ -9,22 +11,28 @@
 
 ---
 ## 목차 
-- [STEP 1](#step-1)
-  - [구현 내용](#구현-내용)
-  - [고민했던 부분](#고민했던-부분)
-- [STEP 2](#step-2) 
-  - [구현 흐름(UML)](#구현-흐름-uml) 
-  - [구현 내용](#구현-내용)
-- [STEP 3](#step-3) 
-  - [고민했던 부분](#고민했던-부분)
-- [STEP 4](#step-4) 
-  - [고민했던 부분](#고민했던-부분)
+- [STEP 1](#STEP1)
+  - [구현 내용](#STEP1_구현)
+  - [고민했던 부분](#STEP1_고민)
+- [STEP 2](#STEP2) 
+  - [구현 흐름(UML)](#STEP2_UML) 
+  - [구현 내용](#STEP2_구현)
+- [STEP 3](#STEP3) 
+  - [고민했던 부분](#STEP3_고민)
+- [STEP 4](#STEP4) 
+  - [고민했던 부분](#STEP4_고민)
+  
 ---
 
-## STEP 1
-## 구현 내용
+<a name="STEP1"></a>
 
-#### **1. Linked List**
+# 🤔 STEP 1
+
+<a name="STEP1_구현"></a>
+
+## 📱 구현 내용
+
+#### 1️⃣ Linked List
 
 |자료 구조|LinkedList|
 |:---:|---|
@@ -33,7 +41,7 @@
 
 프로젝트에서 요구되는 `LinkedList` 자료구조에 대해 살펴보았습니다. `은행에 도착한 고객은 순서대로 처리될 것`이라고 생각하여 `Singly Linked List`를 구현한 후 이를 활용하여 Queue를 구현했습니다. 
 
-#### **2. `Node` 타입을 nested type으로 구현**
+#### 2️⃣ `Node` 타입을 nested type으로 구현
 
 `Node` 타입의 경우 `Linked List`와 직접적으로 관련된 타입으로, 외부에서는 사용될 일이 없을 것이라 생각하여 nested type으로 구현해주었습니다.
 
@@ -51,13 +59,15 @@ class LinkedList<Element> {
 }
 ```
 
-#### **3. `Queue`의 `items` 인스턴스**
+#### 3️⃣ `Queue`의 `items` 인스턴스
 
 `Queue`타입을 초기화 할 때는 `items`에 요소가 없는 빈 경우일 것이라고 생각하여 `items`를 옵셔널이 아닌 빈 값으로 만들어주었습니다. 
 
-### 고민했던 부분
+<a name="STEP1_고민"></a>
 
-### **1. Struct vs Class**
+### 🔥 고민했던 부분
+
+### 1️⃣ Struct vs Class
 
 -  Node를 클래스로 만든 이유
     - Node 타입의 프로퍼티인 next가 Node 타입이어야 하는 상황, 즉 recursive한 관계를 가져야하기 때문에 class를 선택했습니다.
@@ -76,7 +86,7 @@ class LinkedList<Element> {
     - 이러한 이유에 근거하여 class로 해당 타입을 구현했습니다. 
 
 
-### **2. LinkedList의 `removeAll()` 메서드**
+### 2️⃣ LinkedList의 `removeAll()` 메서드
 
 Linked List의 모든 노드를 제거하기 위한 기능으로 아래와 같이 구현해주었습니다. 
 
@@ -124,7 +134,7 @@ head를 nil로 만들어 줄 경우, 가장 마지막 이전 노드까지의 노
 
 이에 마지막으로 `tail = nil`을 해주어 마지막 노드도 정상적으로 제거해주는 방식으로 구현하였습니다. 
 
-### **3. Unit Test를 위한 테스트 코드 작성 방법**
+### 3️⃣ Unit Test를 위한 테스트 코드 작성 방법
 
 테스트 코드도 좋은 코드로 작성해야하는지에 대한 고민이 있었습니다.
 
@@ -149,7 +159,7 @@ func test_1이_들어있는_큐에_peek했을때_값만_반환되고_1이_사라
 ```
 sut 를 사용하는 곳에서 굳이 언래핑해주지 않고 간결하게 사용이 가능해졌습니다. 
 
-### 4. **`super.xxx`는 매번 호출해줘야 하는가?**
+### 4️⃣ `super.xxx`는 매번 호출해줘야 하는가?
 
 override를 하는 경우에 하위 클래스가 상위 클래스에서 지원하는 해당 기능을 사용할 수 있도록 `super.xxx`를 호출했었습니다. 
 
@@ -157,15 +167,20 @@ override를 하는 경우에 하위 클래스가 상위 클래스에서 지원�
 
 앞서 언급된 부분처럼 테스트 코드에서는 OOP 관점으로 생각하지 않고 무결성을 우선시해야하기 때문에 관련된 메서드에서`super.xxx`를 호출하지 않아도 된다는 것을 인지했습니다.
 
-## STEP 2
-## 구현 흐름 (UML)
+<a name="STEP2"></a>
+
+# 🤔 STEP 2
+
+<a name="STEP2_UML"></a>
+## 📈 구현 흐름 (UML)
 
 ![](https://i.imgur.com/0ULWxpO.jpg)
 
+<a name="STEP2_구현"></a>
 
-## 구현 내용
+## 🔥 구현 내용
 
-### 1. 객체 지향 프로그래밍에 대해
+### 1️⃣ 객체 지향 프로그래밍에 대해
 
 객체들은 각각 역할과 책임을 갖고, 서로 메시지(요청)를 보내 협력할 수 있도록 구현해보고자 했습니다. 
 
@@ -188,7 +203,7 @@ override를 하는 경우에 하위 클래스가 상위 클래스에서 지원�
 
  또한 최대한 위 구조를 기반으로 코드로 옮겨보려고 노력했습니다. 
 
-### 2. Delegate 패턴 구현에 대한 부분 
+### 2️⃣ Delegate 패턴 구현에 대한 부분 
 
 두 가지 부분에 대해 Delegate 패턴을 사용하였습니다.
 1. `Bank` <-> `BankClerk`
@@ -196,19 +211,21 @@ override를 하는 경우에 하위 클래스가 상위 클래스에서 지원�
 2. `Bank`와 `BankClerk` -> `BankManager` (`BankDelegate`, `BankClerkDelegate` 프로토콜 채택)
 : `Bank`와 `BankClerk`가 사용자에게 보여줄 메세지를 직접 프린트하지 않고 `BankManager`에서 대신 해주기 위해 사용했습니다. (추후 UIApp으로 전환시, 현재 print되고 있는 부분들이 UI요소와 연결될 부분이라고 생각하였습니다.)
 
-### 3. Delegate 패턴의 순환참조 방지
+### 3️⃣ Delegate 패턴의 순환참조 방지
 
 `Bank`와 `BankClerk`가 서로 참조하고 있는 구조가 되어 순환 참조가 발생하여 메모리 누수가 발생할 수 있을거라 생각했습니다. 
 
 이에 `BankClerk`가 가지는 `bank`를 `weak`로 구현하여 메모리 누수를 방지해주었습니다.
 
+<a name="STEP3"></a>
 
+# 🤔 STEP 3
 
-## STEP 3
+<a name="STEP3_고민"></a>
 
-### 고민했던 부분
+## 🔥 고민했던 부분
 
-1. 동시성 프로그래밍
+### 1️⃣ 동시성 프로그래밍
 
 은행원의 수를 쓰레드라고 생각하였고, 고객의 업무 종류에 따라 depositQueue, loanQueue를 만들어주었습니다.
 depositQueue는 concurrent하게 loanQueue는 serial하게 만들었습니다.
@@ -220,7 +237,7 @@ semaphore를 사용하여 동시에 접근가능한 스레드의 수를 2로 두
 
 반면에 loan 케이스에서는 일을 처리하는 은행원이 한 명이기때문에 비동기적으로 동작하는 serial큐를 사용하였습니다.
 
-2. fatalError를 사용한 이유
+### 2️⃣ fatalError를 사용한 이유
 
 ```swift
 static func createRandomTask() -> Self {
@@ -232,11 +249,11 @@ static func createRandomTask() -> Self {
 ```
 `Task` enum내에 랜덤한 task를 열거형의 모든 case에서 골라서 리턴해주는 메서드에서 fatalError()을 사용하였는데요, 처음에는 error enum을 따로 만들어줘서 에러처리를 해주려고 했지만, 로직상 절대 발생할 수 없는 에러라고 판단하여 fatalError로 구현하였습니다. (apple이 검증한 메서드라고 생각했습니다.)
 
-3. BankClerk의 역할
+### 3️⃣ BankClerk의 역할
 
 앞서 고민했던 부분에 따라 구현하다 보니 BankClerk가 delegate 패턴을 통해 Bank를 알게하는 방식이 필요없게 되었습니다. 이에 이 관계를 제거해주었고, 기존 customer queue에서 dequeue하던 부분을 Bank가 하도록 이전하였습니다.
 
-4. 총 업무 시간 측정하는 방식
+### 4️⃣ 총 업무 시간 측정하는 방식
 
 기존에는 BankClerk가 처리하는 고객의 소요 시간을 일일이 합하여 이를 계산했었는데, 시스템 시간을 활용하여 개선하였습니다. `CFAbsoluteTimeGetCurrent()` 메서드를 사용하여 시작/끝 시간을 기록하고 이 시간들의 차를 총 업무시간으로 하였습니다. 그러나, 시스템 시간은 외부 시간 참조와의 동기화 또는 사용자가 시스템 시간을 변경하는 경우 감소할 수 있기때문에 `DispatchTime` 방식을 사용하여 개선하였습니다. 
 
@@ -257,7 +274,7 @@ let endTime = DispatchTime.now()
 let totalProcessingTime = Double(endTime.uptimeNanoseconds - startTime.uptimeNanoseconds)
 ```
 
-5. Bank 타입의 open 메서드 구현 방식 
+### 5️⃣ Bank 타입의 open 메서드 구현 방식 
 
 Queue에서 맨 처음 요소를 제거하진 않고 확인만 하는 `peek()`를 통해 customer의 task를 확인하고 각각의 queue에 할당 한 후 각 쓰레드 내에서 customerQueue에 접근하여 dequeue하는 방식으로 구현해보려 시도했습니다.
 
@@ -325,21 +342,25 @@ func open(timer: BankTimer) {
 }
 ```
 
-## STEP 4
+<a name="STEP4"></a>
 
-### 고민했던 부분
+# 🤔 STEP 4
 
-1. UI 업데이트
+<a name="STEP4_고민"></a>
+
+## 🔥 고민했던 부분
+
+### 1️⃣ UI 업데이트
 
 UI를 업데이트 하는 코드들은 모두 main 쓰레드 내에서 진행해주었습니다. 이에 문제없이 작동하는 점 확인했습니다. 기본적으로 은행 업무가 진행되는 쓰레드는 custom queue(serial/concurrent)이기에 UI의 경우 다른 쓰레드인 메인 쓰레드에서 정상적으로 업데이트 하도록 구현했습니다. 
 
-2. CustomView의 활용
+### 2️⃣ CustomView의 활용
 
 자주 쓰이는 `UIStackView`나 `UILabel`, `UIButton`들을 커스텀 뷰로 구현하여 사용했습니다. 커스텀 뷰를 만들 때 필요한 속성을 이니셜라이저를 통해 간단하게 생성할 수 있도록 했습니다.
 추가적인 피드백을 통해 커스텀 뷰를 만들기 보다는 클로저 방식으로 UI인스턴스를 만들어주는 방식이 더 효율적이라는 것을 확인하고 추후 반영해보려고 합니다. 
 
 
-3. `wait()` 과 `notify()`
+### 3️⃣ `wait()` 과 `notify()`
 
 Bank 타입의 `open()` 메서드에서 DispatchGroup을 사용하여 group안에 들어간 작업들이 모두 끝날 때 비동기적으로 timer의 stop 메서드가 호출되도록 구현하였습니다.
 
@@ -353,6 +374,6 @@ group.notify(queue: DispatchQueue.main) {
 }
 ```
 
-4. UIStackView 활용
+### 4️⃣ UIStackView 활용
 
 코드로 화면을 그릴 때 최대한 stackView를 활용하여 구성해보려고 노력했습니다. 이 덕분에 개별 UI요소에 auto layout을 적용하는 것보다 공수가 덜 들게 된 것 같아 이점을 취했다고 생각했습니다! 추가 피드백을 통해 `UIStackView`, Auto layout의 성능을 확인했으며 체계적으로 잘 사용해야겠다고 생각했습니다. 
